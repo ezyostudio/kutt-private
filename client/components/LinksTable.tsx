@@ -74,6 +74,10 @@ const EditContent = styled(Col)`
   background-color: #fafafa;
 `;
 
+const DownloadLink = styled.a`
+  cursor: pointer;
+`;
+
 const Action = (props: React.ComponentProps<typeof Icon>) => (
   <Icon
     as="button"
@@ -182,6 +186,21 @@ const Row: FC<RowProps> = ({ index, link, setDeleteModal }) => {
     setShowEdit(s => !s);
     if (showEdit) editFormState.reset();
     setEditMessage("");
+  };
+
+  const downloadQR = () => {
+    const canvas = document.getElementById("link-qr") as HTMLCanvasElement;
+    if (canvas) {
+      const pngUrl = canvas
+        .toDataURL("image/png")
+        .replace("image/png", "image/octet-stream");
+      const downloadLink = document.createElement("a");
+      downloadLink.href = pngUrl;
+      downloadLink.download = "qr-code-" + link.address + ".png";
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+    }
   };
 
   return (
@@ -459,7 +478,9 @@ const Row: FC<RowProps> = ({ index, link, setDeleteModal }) => {
         closeHandler={() => setQRModal(false)}
       >
         <RowCenter width={192}>
-          <QRCode size={192} value={link.link} />
+          <DownloadLink onClick={downloadQR}>
+            <QRCode id="link-qr" size={192} value={link.link} />
+          </DownloadLink>
         </RowCenter>
       </Modal>
       <Modal
