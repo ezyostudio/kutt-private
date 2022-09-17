@@ -1,4 +1,3 @@
-import appRoot from "app-root-path";
 import winston from "winston";
 
 const { combine, colorize, printf, timestamp } = winston.format;
@@ -15,7 +14,7 @@ const rawFormat = printf(info => {
 const options = {
   file: {
     level: "info",
-    filename: `${appRoot}/logs/app.log`,
+    filename: `${__dirname}/logs/app.log`,
     handleExceptions: true,
     json: true,
     maxsize: 5242880, // 5MB
@@ -25,7 +24,7 @@ const options = {
   errorFile: {
     level: "error",
     name: "file.error",
-    filename: `${appRoot}/logs/error.log`,
+    filename: `${__dirname}/logs/error.log`,
     handleExceptions: true,
     json: true,
     maxsize: 5242880, // 5MB

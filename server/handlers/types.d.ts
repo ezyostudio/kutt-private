@@ -1,6 +1,7 @@
 import { Request } from "express";
 
 export interface CreateLinkReq extends Request {
+  user: UserJoined;
   body: {
     reuse?: boolean;
     password?: string;

@@ -2,9 +2,6 @@ import getConfig from "next/config";
 
 const { publicRuntimeConfig } = getConfig();
 
-export const DISALLOW_ANONYMOUS_LINKS =
-  publicRuntimeConfig.DISALLOW_ANONYMOUS_LINKS === "true";
-
 export const DISALLOW_REGISTRATION =
   publicRuntimeConfig.DISALLOW_REGISTRATION === "true";
 

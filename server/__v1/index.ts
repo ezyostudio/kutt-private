@@ -8,7 +8,6 @@ import {
 } from "./controllers/validateBodyController";
 import * as auth from "../handlers/auth";
 import * as link from "./controllers/linkController";
-import env from "../env";
 
 const router = Router();
 
@@ -17,7 +16,7 @@ router.post(
   "/url/submit",
   cors(),
   asyncHandler(auth.apikey),
-  asyncHandler(env.DISALLOW_ANONYMOUS_LINKS ? auth.jwt : auth.jwtLoose),
+  asyncHandler(auth.jwt),
   asyncHandler(auth.recaptcha),
   asyncHandler(validateUrl),
   asyncHandler(ipCooldownCheck),
